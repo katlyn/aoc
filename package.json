@@ -2,9 +2,9 @@
   "name": "aoc",
   "version": "1.0.0",
   "description": "Solutions for Advent of Code",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "solve": "node index.mjs"
   },
   "repository": {
     "type": "git",
