@@ -1,0 +1,23 @@
+{
+  "name": "aoc",
+  "version": "1.0.0",
+  "description": "Solutions for Advent of Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/theGordHoard/aoc.git"
+  },
+  "author": "Katlyn Lorimer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theGordHoard/aoc/issues"
+  },
+  "homepage": "https://github.com/theGordHoard/aoc#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "es-main": "^1.0.2"
+  }
+}
