@@ -17,8 +17,10 @@ console.log(`Solutions for ${recentYear}`)
 console.log(chalk.dim('Day         Star One         Star Two     Execution time'))
 let totalElapsed = 0
 for (const solution of solutions) {
+  const { day, solve } = await import(path.join(__dirname, recentYear, solution))
+  if (!solve) continue
   const before = performance.now()
-  const { day, starOne, starTwo } = await import(path.join(__dirname, recentYear, solution))
+  const { starOne, starTwo } = solve()
   const after = performance.now()
   const elapsed = after - before
   totalElapsed += elapsed
