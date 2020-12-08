@@ -3,6 +3,8 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { performance } from 'perf_hooks'
 
+const SOLVER_ITERATIONS = process.env.SOLVER_ITERATIONS === undefined ? 100 : Number(process.env.SOLVER_ITERATIONS)
+
 // Get the directory this file is in, slice off file://
 const __dirname = path.dirname(import.meta.url).slice(7)
 const dirs = await fs.readdir(__dirname)
@@ -13,22 +15,26 @@ const recentYear = years [0]
 
 const solutions = await fs.readdir(path.join(__dirname, recentYear))
 
-console.log(`Solutions for ${recentYear}`)
-console.log(chalk.dim('Day         Star One         Star Two     Execution time'))
+console.log(`Solutions for ${recentYear} - Averaging over ${SOLVER_ITERATIONS} solves`)
+console.log(chalk.dim('Day         Star One         Star Two      Avg Execution'))
 let totalElapsed = 0
 for (const solution of solutions) {
   const { day, solve } = await import(path.join(__dirname, recentYear, solution))
-  if (!solve) continue
-  const before = performance.now()
+  const times = []
+  for (let i = 0; i < SOLVER_ITERATIONS; ++i) {
+    const before = performance.now()
+    solve()
+    const after = performance.now()
+    times.push(after - before)
+  }
   const { starOne, starTwo } = solve()
-  const after = performance.now()
-  const elapsed = after - before
-  totalElapsed += elapsed
+  const average = times.reduce((a, b) => a + b) / times.length
+  totalElapsed += average
   console.log(
     day.toString().padStart(3),
     chalk.blueBright(starOne.toString().padStart(16)),
     chalk.greenBright(starTwo.toString().padStart(16)),
-    chalk.dim(`${elapsed.toFixed(3).padStart(16)}ms`)
+    chalk.dim(`${average.toFixed(3).padStart(16)}ms`)
   )
 }
-console.log(chalk.dim(`\nAll solutions run in ${totalElapsed.toFixed(5)}ms`))
+console.log(chalk.dim(`\nAll solutions run in an average of ${totalElapsed.toFixed(5)}ms`))
