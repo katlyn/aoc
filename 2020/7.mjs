@@ -27,7 +27,12 @@ export const solve = () => {
     input.set(bag, contains)
   })
   
+  const cache = new Map
   const findCount = (color, target) => {
+    const cached = cache.get(color + target)
+    if (cached !== undefined) {
+      return cached
+    }
     const contains = input.get(color)
     let acc = 0
     for (const bag of contains) {
@@ -36,6 +41,8 @@ export const solve = () => {
       }
       acc += findCount(bag.color, target)
     }
+
+    cache.set(color + target, acc)
     return acc
   }
   
