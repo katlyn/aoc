@@ -13,13 +13,15 @@ const dirs = await fs.readdir(__dirname)
 const years = dirs.filter(y => !isNaN(y)).sort((a, b) => Number(b) - Number(a))
 const recentYear = years [0]
 
-const solutions = await fs.readdir(path.join(__dirname, recentYear))
+const solutionFiles = await fs.readdir(path.join(__dirname, recentYear))
+const solutionImports = await Promise.all(solutionFiles.map(f => import(path.join(__dirname, recentYear, f))))
+const solutions = solutionImports.sort((a, b) => a.day - b.day)
 
 console.log(`Solutions for ${recentYear} - Averaging over ${SOLVER_ITERATIONS} solves`)
 console.log(chalk.dim('Day         Star One         Star Two      Avg Execution'))
 let totalElapsed = 0
 for (const solution of solutions) {
-  const { day, solve } = await import(path.join(__dirname, recentYear, solution))
+  const { day, solve } = solution
   const times = []
   for (let i = 0; i < SOLVER_ITERATIONS; ++i) {
     const before = performance.now()
