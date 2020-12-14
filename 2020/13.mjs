@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-import { time } from 'console'
 import esmain from 'es-main'
 import { promises as fs } from 'fs'
 import path from 'path'
@@ -59,11 +58,8 @@ export const solve = () => {
       continue
     }
     args[0].push(busses[i] - i % busses[i])
-    console.log(i, busses[i], i % busses[i])
     args[1].push(busses[i])
   }
-  
-  console.log(args)
 
   // TODO: write this myselt without an external library
   const starTwo = crt(...args)
