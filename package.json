@@ -18,6 +18,7 @@
   "homepage": "https://github.com/theGordHoard/aoc#readme",
   "dependencies": {
     "chalk": "^4.1.0",
-    "es-main": "^1.0.2"
+    "es-main": "^1.0.2",
+    "nodejs-chinese-remainder": "^0.0.6"
   }
 }
