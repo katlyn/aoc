@@ -14,11 +14,31 @@ const inputString = (await fs.readFile(inputPath)).toString()
 
 export const solve = () => {
   // Parsed and mapped to be useful
-  const input = inputString
+  const input = inputString.split('\n').map(l => l.split(' '))
+
+  let horizontal = 0
+  let depth = 0
+  let aim = 0
+
+  for (const line of input) {
+    switch (line[0]) {
+      case 'down':
+        aim += Number(line[1])
+        break
+      
+      case 'up':
+        aim -= Number(line[1])
+        break
+
+      case 'forward':
+        horizontal += Number(line[1])
+        depth += aim * Number(line[1])
+        break
+    }
+  }
   
-  const starOne = 0
-  
-  const starTwo = 0
+  const starOne = horizontal * aim
+  const starTwo = horizontal * depth
 
   return { starOne, starTwo }
 }

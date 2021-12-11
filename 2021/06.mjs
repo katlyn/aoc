@@ -14,11 +14,32 @@ const inputString = (await fs.readFile(inputPath)).toString()
 
 export const solve = () => {
   // Parsed and mapped to be useful
-  const input = inputString
+  const input = inputString.split(',').map(Number)
+
+  let fishies = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   
-  const starOne = 0
+  for (const fish of input) {
+    fishies[fish]++
+  }
   
-  const starTwo = 0
+  function spawn () {
+    const toSpawn = fishies.shift()
+    fishies.push(toSpawn)
+    fishies[6] += toSpawn
+  }
+
+  for (let i = 0; i < 80; ++i) {
+    spawn()
+  }
+
+  const starOne = fishies.reduce((acc, c) => acc + c, 0)
+  
+
+  for (let i = 80; i < 256; ++i) {
+    spawn()
+  }
+
+  const starTwo = fishies.reduce((acc, c) => acc + c, 0)
 
   return { starOne, starTwo }
 }

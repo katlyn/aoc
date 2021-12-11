@@ -3,6 +3,7 @@ import esmain from 'es-main'
 import { promises as fs } from 'fs'
 import path from 'path'
 
+
 const file = import.meta.url.slice(7)
 const __dirname = path.dirname(import.meta.url).slice(7)
 
@@ -14,11 +15,25 @@ const inputString = (await fs.readFile(inputPath)).toString()
 
 export const solve = () => {
   // Parsed and mapped to be useful
-  const input = inputString
+  const input = inputString.split('\n').map(Number)
   
-  const starOne = 0
+  const starOne = input.reduce((acc, curr, i) => {
+    if (input[i] > input[i - 1]) {
+      return acc + 1
+    } else {
+      return acc
+    }
+  }, 0)
   
-  const starTwo = 0
+  const starTwo = input.reduce((acc, curr, i) => {
+    if (i < 2) {
+      return acc
+    } else if (input[i - 1] + input[i] + input[i + 1] > input[i - 2] + input[i - 1] + input[i]) {
+      return acc + 1
+    } else {
+      return acc
+    }
+  }, 0)
 
   return { starOne, starTwo }
 }

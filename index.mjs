@@ -3,7 +3,7 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { performance } from 'perf_hooks'
 
-const SOLVER_ITERATIONS = process.env.SOLVER_ITERATIONS === undefined ? 100 : Number(process.env.SOLVER_ITERATIONS)
+const SOLVER_ITERATIONS = process.env.SOLVER_ITERATIONS === undefined ? 1000 : Number(process.env.SOLVER_ITERATIONS)
 
 // Get the directory this file is in, slice off file://
 const __dirname = path.dirname(import.meta.url).slice(7)
@@ -11,7 +11,7 @@ const dirs = await fs.readdir(__dirname)
 
 // All year dirs will be valid numbers, sort for the most recent one
 const years = dirs.filter(y => !isNaN(y)).sort((a, b) => Number(b) - Number(a))
-const recentYear = years [0]
+const recentYear = years[0]
 
 const solutionFiles = await fs.readdir(path.join(__dirname, recentYear))
 const solutionImports = await Promise.all(solutionFiles.map(f => import(path.join(__dirname, recentYear, f))))
