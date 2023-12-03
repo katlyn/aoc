@@ -1,0 +1,6 @@
+build:
+  nasm -f elf64 -F dwarf -g day_02.asm
+  gcc -Wall -no-pie day_02.o
+
+run: build
+  ./a.out
