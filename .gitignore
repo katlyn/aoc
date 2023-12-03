@@ -1,0 +1,16 @@
+# no i will not listen to you jetbrains
+.idea
+
+# ASM/C related files
+*.out
+*.o
+
+# JS/TS related files
+*.js
+node_modules
+
+# Ingore inputs
+*.txt
+
+# Make sure everything in the template file is included
+!template/*.txt
