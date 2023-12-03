@@ -15,7 +15,6 @@ create day=(current_day):
 
 # run today's solution with your input
 run day=(current_day):
-  echo {{day}}
   @{{just_executable()}} --justfile {{justfile()}} run_day_{{day}}
 
 # run today's solution with example input
@@ -33,3 +32,9 @@ run_day_02:
 
 test_day_02:
   @<day_02/example.txt node --loader @swc-node/register/esm ./day_02/index.mts
+
+run_day_03:
+  @<day_03/input.txt node --loader @swc-node/register/esm ./day_03/index.mts
+
+test_day_03:
+  @<day_03/example.txt node --loader @swc-node/register/esm ./day_03/index.mts
